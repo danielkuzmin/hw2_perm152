@@ -1,25 +1,34 @@
+/*
+ Daniel Kuzmin
+ Class code: 1618
+ September 24 2019
+ Brief Description:
+ This file contains the code for part B of the second assignment.
+ A program to decrypt an array of 64 bits given the algorithm from the assignment.
+ from the assignment.
+ Tested on Athena, compiled like so:
+ clang -g -O0 -std=c99 -Werror -Wall -Wextra -Wconversion -fsanitize=address hw2_perm152inverse.c
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 
+// This function takes a uint32_t and unsigned int i and rotates it right by i bits
 static uint32_t rotr(uint32_t x, unsigned int i) {
     return (x >> i) | (x << (32-i));
 }
 
+// The de-mixing function
 static void r_update(uint32_t *w, uint32_t *x, uint32_t *y, uint32_t *z) {
-//    *w = *w + *x; *z = *z ^ *w; *z = rotl(*z, 16);
-//    *y = *y + *z; *x = *x ^ *y; *x = rotl(*x, 12);
-//    *w = *w + *x; *z = *z ^ *w; *z = rotl(*z, 8);
-//    *y = *y + *z; *x = *x ^ *y; *x = rotl(*x, 7);
-
     *x = rotr(*x, 7); *x = *x ^ *y; *y = *y - *z;
     *z = rotr(*z, 8); *z = *z ^ *w; *w = *w - *x;
     *x = rotr(*x, 12); *x = *x ^ *y; *y = *y - *z;
     *z = rotr(*z, 16); *z = *z ^ *w; *w = *w - *x;
 }
 
+// Takes a pointer to an array in, copies it to a temp array, modifies it, then writes to out
 void perm152inverse(unsigned char *in, unsigned char *out) {
-    printf("perminversecalled\n");
     uint32_t a[16];
     memcpy(a, in, 64);
 
@@ -33,10 +42,4 @@ void perm152inverse(unsigned char *in, unsigned char *out) {
     r_update(&a[0], &a[4], &a[8], &a[12]);
     memcpy(out, a, 64);
 
-    printf("---REVERSE---\n");
-
-    for (int i = 0; i < 64; i++)
-    {
-        printf("%x \n", out[i]);
-    }
 }

@@ -4,8 +4,9 @@
 #include "hw2_perm152inverse.c"
 
 int main() {
-    unsigned char a[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};;// = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-/*    a[0] = 0x03020100;
+    unsigned char a[64] = "DANIEL KUZMIN IS TESTING HOMEWORK PERM152 FOR HIS COMPUTER SCIEN"; //{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+
+/*  a[0] = 0x03020100;
     a[1] = 0x07060504;
     a[2] = 0x0b0a0908;
     a[3] = 0x0f0e0d0c;
@@ -25,11 +26,6 @@ int main() {
 */
 
     uint32_t b[64];
-    printf("input values\n");
-    for(int i = 0; i < 16; i++) {
-        printf("%d\n", a[i]);
-    }
-    printf("end of input values\n\n");
 
     perm152((unsigned char *) a, (unsigned char *) b);
     unsigned char c[64];
