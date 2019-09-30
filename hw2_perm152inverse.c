@@ -31,15 +31,16 @@ static void r_update(uint32_t *w, uint32_t *x, uint32_t *y, uint32_t *z) {
 void perm152inverse(unsigned char *in, unsigned char *out) {
     uint32_t a[16];
     memcpy(a, in, 64);
-
-    r_update(&a[3], &a[4], &a[9], &a[14]);
-    r_update(&a[2], &a[7], &a[8], &a[13]);
-    r_update(&a[1], &a[6], &a[11], &a[12]);
-    r_update(&a[0], &a[5], &a[10], &a[15]);
-    r_update(&a[3], &a[7], &a[11], &a[15]);
-    r_update(&a[2], &a[6], &a[10], &a[14]);
-    r_update(&a[1], &a[5], &a[9], &a[13]);
-    r_update(&a[0], &a[4], &a[8], &a[12]);
+    for (int i = 0; i<10; i++) {
+        r_update(&a[3], &a[4], &a[9], &a[14]);
+        r_update(&a[2], &a[7], &a[8], &a[13]);
+        r_update(&a[1], &a[6], &a[11], &a[12]);
+        r_update(&a[0], &a[5], &a[10], &a[15]);
+        r_update(&a[3], &a[7], &a[11], &a[15]);
+        r_update(&a[2], &a[6], &a[10], &a[14]);
+        r_update(&a[1], &a[5], &a[9], &a[13]);
+        r_update(&a[0], &a[4], &a[8], &a[12]);
+    }
     memcpy(out, a, 64);
 
 }

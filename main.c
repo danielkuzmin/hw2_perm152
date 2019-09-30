@@ -28,8 +28,20 @@ int main() {
     uint32_t b[64];
 
     perm152((unsigned char *) a, (unsigned char *) b);
+
+    for (int i = 0; i < 64; i++)
+    {
+        printf("%c", a[i]);
+    }
+    for (int i = 0; i < 64; i++)
+    {
+        printf("%c", b[i]);
+    }
     unsigned char c[64];
     perm152inverse((unsigned char *)b, c);
-
+    for (int i = 0; i < 64; i++)
+    {
+        printf("%c", c[i]);
+    }
     return 0;
 }

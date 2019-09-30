@@ -28,19 +28,21 @@ static void update(uint32_t *w, uint32_t *x, uint32_t *y, uint32_t *z) {
 }
 
 // Takes a pointer to an array in, copies it to a temp array, modifies it, then writes to out
-void perm152(unsigned char *in, unsigned char *out) {
+void perm152(unsigned char in[64], unsigned char out[64]) {
     uint32_t a[16];
 
     memcpy(a, in, 64);
+    for (int i = 0; i<10; i++) {
+        update(&a[0], &a[4], &a[8], &a[12]);
+        update(&a[1], &a[5], &a[9], &a[13]);
+        update(&a[2], &a[6], &a[10], &a[14]);
+        update(&a[3], &a[7], &a[11], &a[15]);
 
-    update(&a[0], &a[4], &a[8], &a[12]);
-    update(&a[1], &a[5], &a[9], &a[13]);
-    update(&a[2], &a[6], &a[10], &a[14]);
-    update(&a[3], &a[7], &a[11], &a[15]);
-    update(&a[0], &a[5], &a[10], &a[15]);
-    update(&a[1], &a[6], &a[11], &a[12]);
-    update(&a[2], &a[7], &a[8], &a[13]);
-    update(&a[3], &a[4], &a[9], &a[14]);
+        update(&a[0], &a[5], &a[10], &a[15]);
+        update(&a[1], &a[6], &a[11], &a[12]);
+        update(&a[2], &a[7], &a[8], &a[13]);
+        update(&a[3], &a[4], &a[9], &a[14]);
+    }
     memcpy (out, a, 64);
 
 }
